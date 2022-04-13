@@ -15,6 +15,27 @@ const connect = function() {
 
   conn.on('connect', () => conn.write('Name: DPK'));
 
+  conn.on('connect', () => {
+    
+    for (let i = 0; i < 360; i++) {
+  
+      setTimeout(() => {
+        let dir = 'Move: up';
+        console.log(i);
+        if (i <= 30) {
+          dir = 'Move: down';
+        } else if (i > 30 && i <= 60) {
+          dir = 'Move: left';
+        } else if (i > 60 && i <= 90) {
+          dir = 'Move: up';
+        } else if (i > 90 && i <= 120) {
+          dir = 'Move: right';
+        }
+        conn.write(dir);
+      }, (i * 50));
+    }
+  });
+
   conn.on('data', (data) => console.log('Server says: ', data));
   
   return conn;
